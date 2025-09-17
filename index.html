@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BILFIRMA – Försäljning & Inbyte</title>
+  <meta name="description" content="Enkel landningssida för bilfirma: visa bilar till salu, kontaktformulär och företagsinfo." />
+  <style>
+    :root{
+      --bg:#0f172a;        /* mörk bakgrund */
+      --panel:#111827;     /* paneler */
+      --muted:#94a3b8;     /* sekundär text */
+      --text:#e5e7eb;      /* primär text */
+      --brand:#22c55e;     /* accent/grön */
+      --brand-2:#06b6d4;   /* accent/teal */
+      --ring:#38bdf8;      /* fokusring */
+    }
+
+    /* Bas */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      line-height:1.5; color:var(--text); background: radial-gradient(1200px 600px at 10% -10%, #0b1027, transparent), var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1100px, 92%); margin-inline:auto}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:30;
+      background:linear-gradient(180deg, rgba(17,24,39,.95), rgba(17,24,39,.75));
+      backdrop-filter:saturate(1.2) blur(8px);
+      border-bottom:1px solid rgba(148,163,184,.12);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; gap:.6rem; align-items:center; font-weight:700; letter-spacing:.5px}
+    .logo{width:36px; aspect-ratio:1/1; border-radius:10px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); display:grid; place-items:center; font-weight:900; color:#0b1220}
+    .nav a.btn{padding:.6rem 1rem; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#08111f; font-weight:700}
+
+    /* Hero */
+    .hero{padding:4.5rem 0 2.5rem; position:relative}
+    .hero h1{font-size:clamp(1.8rem, 2.6vw + 1rem, 3rem); line-height:1.1; margin:0}
+    .hero p{color:var(--muted); margin:.9rem 0 1.4rem}
+    .hero .cta{display:flex; gap:.8rem; flex-wrap:wrap}
+    .btn{display:inline-block; padding:.8rem 1.1rem; border-radius:12px; font-weight:600; border:1px solid transparent}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#06121f}
+    .btn.ghost{border-color:rgba(148,163,184,.2); color:var(--text)}
+    .hero-art{position:absolute; inset:auto 0 -40px auto; width: min(560px, 45%); opacity:.3; pointer-events:none}
+
+    /* Sektionstitlar */
+    .section{padding:2.2rem 0}
+    .section h2{font-size:clamp(1.3rem,1.2vw + 1rem,1.9rem); margin:0 0 1rem}
+    .muted{color:var(--muted)}
+
+    /* Produktkort */
+    .grid{display:grid; gap:1rem}
+    @media (min-width:640px){ .grid{grid-template-columns: repeat(2, 1fr)} }
+    @media (min-width:960px){ .grid{grid-template-columns: repeat(3, 1fr)} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid rgba(148,163,184,.15); border-radius:16px; overflow:hidden; display:flex; flex-direction:column;
+    }
+    .thumb{aspect-ratio:16/9; background:#0b1220; position:relative}
+    .badge{position:absolute; top:.7rem; left:.7rem; padding:.3rem .55rem; background:rgba(2,6,23,.7); border:1px solid rgba(148,163,184,.25); border-radius:999px; font-size:.8rem}
+    .card-body{padding:1rem}
+    .title{font-weight:700; margin:0 0 .2rem}
+    .specs{display:flex; flex-wrap:wrap; gap:.4rem .6rem; margin:.6rem 0 .9rem}
+    .chip{font-size:.85rem; padding:.2rem .5rem; border:1px solid rgba(148,163,184,.2); border-radius:999px; color:var(--muted)}
+    .price{font-weight:800; letter-spacing:.3px}
+    .card .btn{margin-top:auto}
+
+    /* Om oss */
+    .about{display:grid; gap:1rem; align-items:start}
+    @media (min-width:900px){ .about{grid-template-columns: 1.2fr .8fr} }
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid rgba(148,163,184,.15); border-radius:16px; padding:1.2rem}
+
+    /* Kontakt */
+    form{display:grid; gap:.8rem}
+    input, textarea{
+      width:100%; padding:.8rem .9rem; border-radius:12px; background:#0b1220; color:var(--text);
+      border:1px solid rgba(148,163,184,.25); outline:none; transition: box-shadow .15s, border-color .15s
+    }
+    input:focus, textarea:focus{ border-color:var(--ring); box-shadow:0 0 0 4px rgba(56,189,248,.15)}
+    textarea{min-height:120px; resize:vertical}
+
+    /* Footer */
+    footer{padding:2rem 0 3rem; color:var(--muted); text-align:center}
+    .foot{display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap}
+    .foot a{border-bottom:1px dashed rgba(148,163,184,.35)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top"><span class="logo">BF</span> Bilfirma</a>
+      <nav class="menu">
+        <a class="btn" href="#kontakt">Kontakta oss</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero">
+      <h1>Trygga bilar med full historik</h1>
+      <p class="muted">Köp, sälj eller byt in din bil hos oss – besiktade, servade och redo för vägen</p>
+      <div class="cta">
+        <a href="#lager" class="btn primary">Se lager</a>
+        <a href="#kontakt" class="btn ghost">Få offert</a>
+      </div>
+      <img class="hero-art" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Sportbil i studio" />
+    </section>
+
+    <section id="lager" class="section">
+      <h2>Lager – utvalda bilar</h2>
+      <p class="muted">Lägg in dina egna bilder och uppdatera specifikationerna</p>
+      <div class="grid">
+        <!-- Kort 1 -->
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&auto=format&fit=crop" alt="Sedan silver" />
+            <span class="badge">Nyinkommen</span>
+          </div>
+          <div class="card-body">
+            <h3 class="title">BMW 3-serie 320i xDrive 2018</h3>
+            <div class="specs">
+              <span class="chip">12 300 mil</span>
+              <span class="chip">Automat</span>
+              <span class="chip">Bensin</span>
+              <span class="chip">AWD</span>
+            </div>
+            <div class="price">199 000 kr</div>
+            <a href="#kontakt" class="btn ghost" aria-label="Intresse BMW 3-serie">Intresse</a>
+          </div>
+        </article>
+
+        <!-- Kort 2 -->
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Sportbil röd" />
+            <span class="badge">Garanti 12 mån</span>
+          </div>
+          <div class="card-body">
+            <h3 class="title">Audi A3 Sportback 1.4 TFSI 2017</h3>
+            <div class="specs">
+              <span class="chip">9 800 mil</span>
+              <span class="chip">Manuell</span>
+              <span class="chip">Bensin</span>
+              <span class="chip">Euro 6</span>
+            </div>
+            <div class="price">149 000 kr</div>
+            <a href="#kontakt" class="btn ghost">Intresse</a>
+          </div>
+        </article>
+
+        <!-- Kort 3 -->
+        <article class="card">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1549921296-3b4a94d2f9b8?q=80&w=1200&auto=format&fit=crop" alt="SUV blå" />
+            <span class="badge">Pris sänkt</span>
+          </div>
+          <div class="card-body">
+            <h3 class="title">Volvo XC60 D4 Momentum 2016</h3>
+            <div class="specs">
+              <span class="chip">14 500 mil</span>
+              <span class="chip">Automat</span>
+              <span class="chip">Diesel</span>
+              <span class="chip">Dragkrok</span>
+            </div>
+            <div class="price">169 000 kr</div>
+            <a href="#kontakt" class="btn ghost">Intresse</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about">
+      <div class="panel">
+        <h2>Om Bilfirma</h2>
+        <p class="muted">Vi är ett familjeföretag som brinner för trygga bilaffärer. Alla bilar är testade, rekonditionerade och kan levereras med garanti. Finansiering och hemleverans erbjuds.</p>
+        <ul>
+          <li>Öppet: Mån–Fre 10–18, Lör 11–15</li>
+          <li>Adress: Industrigatan 12, 123 45 Stad</li>
+          <li>Telefon: 070‑123 45 67</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Sälj eller byt in</h2>
+        <p class="muted">Fyll i formuläret så återkommer vi med ett kostnadsfritt prisförslag inom kort.</p>
+        <form id="kontakt" onsubmit="event.preventDefault(); alert('Tack! Vi hör av oss.'); this.reset();">
+          <label>
+            Namn
+            <input type="text" name="namn" placeholder="Ditt namn" required>
+          </label>
+          <label>
+            E‑post
+            <input type="email" name="epost" placeholder="namn@example.com" required>
+          </label>
+          <label>
+            Meddelande
+            <textarea name="msg" placeholder="Skriv om bilen du vill sälja eller vad du söker" required></textarea>
+          </label>
+          <button class="btn primary" type="submit">Skicka</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> Bilfirma – Alla rättigheter förbehållna</div>
+      <div class="foot">
+        <a href="#top">Till toppen</a>
+        <span>•</span>
+        <a href="#">Integritet</a>
+        <span>•</span>
+        <a href="#">Köpvillkor</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // uppdatera årtal i footern
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
